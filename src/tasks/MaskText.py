@@ -54,7 +54,8 @@ class MaskTextApp:
             text_output = self.mask_text(text_input)
             if text_output != -1:
                 st.write("Các gợi ý cho bạn:")
-                st.write(text_output)
+                for i in range(5):
+                    st.write(f'*\tGợi ý {i}: **{text_output[i]}**')
             else:
                 st.write("Câu của bạn không đúng cú pháp đã yêu cầu")
     
