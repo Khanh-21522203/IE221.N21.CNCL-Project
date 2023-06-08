@@ -125,9 +125,11 @@ class ImageProcess:
 
         if uploaded_file is not None:
             self.image = Image.open(uploaded_file)
+            
             # Hiển thị ảnh gốc
             if self.image is not None:
                 col1, col2 = st.columns(2)
+                
                 with col1:
                     # Sử dụng st.slider để chọn factor
                     contrast_factor = st.slider("Độ tương phản", 0.0, 2.0, 1.0, 0.1, key='contrast')
@@ -171,26 +173,30 @@ class ImageProcess:
         Returns:
             PIL.Image.Image: Ảnh đã được cập nhật sau khi áp dụng các chỉnh sửa.
         """
-        if contrast_factor != self.prev_contrast_factor:
-            enhanced_image = self.change_contrast(self.image, contrast_factor)
-            # Cập nhật hình ảnh sau khi thay đổi độ tương phản
-            self.prev_contrast_factor = contrast_factor
-        if bright_factor != self.prev_bright_factor:
-            enhanced_image = self.change_brightness(enhanced_image, bright_factor)
-            # Cập nhật hình ảnh sau khi thay đổi độ sáng
-            self.prev_bright_factor = bright_factor
-        if shadow_factor != self.prev_shadow_factor:
-            enhanced_image = self.change_shadow(enhanced_image, shadow_factor)
-            # Cập nhật hình ảnh sau khi thay đổi độ đổ bóng
-            self.prev_shadow_factor = shadow_factor
-        if color_factor != self.prev_color_factor:
-            enhanced_image = self.color_change(enhanced_image, color_factor)
-            # Cập nhật hình ảnh sau khi thay đổi màu sắc
-            self.prev_color_factor = color_factor
-        if frame_factor != self.prev_frame_factor:
-            enhanced_image = self.frame_change(enhanced_image, frame_factor)
-            # Cập nhật hình ảnh sau khi thay đổi khung
-            self.prev_frame_factor = frame_factor
+        # thay đổi độ tương phản
+        enhanced_image = self.change_contrast(self.image, contrast_factor)
+        # Cập nhật hình ảnh sau khi thay đổi độ tương phản
+        self.prev_contrast_factor = contrast_factor
+
+        # thay đổi độ sáng
+        enhanced_image = self.change_brightness(enhanced_image, bright_factor)
+        # Cập nhật hình ảnh sau khi thay đổi độ sáng
+        self.prev_bright_factor = bright_factor
+
+        # thay đổi độ đổ bóng
+        enhanced_image = self.change_shadow(enhanced_image, shadow_factor)
+        # Cập nhật hình ảnh sau khi thay đổi độ đổ bóng
+        self.prev_shadow_factor = shadow_factor
+
+        # thay đổi cường độ màu sắc
+        enhanced_image = self.color_change(enhanced_image, color_factor)
+        # Cập nhật hình ảnh sau khi thay đổi màu sắc
+        self.prev_color_factor = color_factor
+        
+        # thay đổi độ tỷ lệ khung
+        enhanced_image = self.frame_change(enhanced_image, frame_factor)
+        # Cập nhật hình ảnh sau khi thay đổi khung
+        self.prev_frame_factor = frame_factor
 
         return enhanced_image
     
